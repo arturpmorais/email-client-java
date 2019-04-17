@@ -19,5 +19,8 @@ public class LoginBean {
 		this.password = password;
 	}
 	
-	
+	@Override
+	public String toString() {
+		return "LoginBean [username=" + username + ", password=" + password + "]";
+	}
 }

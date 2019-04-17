@@ -1,2 +1,2 @@
 eclipse.preferences.version=1
-locationorg.eclipse.jst.server.tomcat.runtime.80=C\:/apache-tomcat-8.0.32-windows-x64/apache-tomcat-8.0.32
+locationorg.eclipse.jst.server.tomcat.runtime.80=/home/artur/eclipse/jee-2019-03/eclipse/apache-tomcat

@@ -7,10 +7,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form method="POST" action="">
+	<form method="POST" action="login.jsp">
 		<input type="text" placeholder="username" id="username" name="username"/>
 		<br>
-		<input type="password" placeholder="senha" id="senha" name="senha"/>
+		<input type="password" placeholder="senha" id="password" name="password"/>
 		<br>
 		<input type="submit" value="entrar">
 	</form>

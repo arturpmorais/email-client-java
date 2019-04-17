@@ -1,6 +1,0 @@
-127.0.0.1 - - [16/Apr/2019:14:57:02 -0300] "GET / HTTP/1.1" 404 994
-0:0:0:0:0:0:0:1 - - [16/Apr/2019:14:57:04 -0300] "GET /EmailClient/index.jsp HTTP/1.1" 200 296
-0:0:0:0:0:0:0:1 - - [16/Apr/2019:14:59:08 -0300] "GET /EmailClient/index.jsp HTTP/1.1" 200 365
-0:0:0:0:0:0:0:1 - - [16/Apr/2019:14:59:13 -0300] "GET /EmailClient/index.jsp?username=&senha= HTTP/1.1" 200 365
-0:0:0:0:0:0:0:1 - - [16/Apr/2019:14:59:14 -0300] "GET /EmailClient/index.jsp?username=&senha= HTTP/1.1" 200 365
-0:0:0:0:0:0:0:1 - - [16/Apr/2019:14:59:17 -0300] "GET /EmailClient/index.jsp?username=yhgf&senha=yyu HTTP/1.1" 200 365

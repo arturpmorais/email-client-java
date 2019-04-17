@@ -1,0 +1,13 @@
+127.0.0.1 - - [17/Apr/2019:08:42:13 -0300] "GET / HTTP/1.1" 404 994
+127.0.0.1 - - [17/Apr/2019:08:42:45 -0300] "GET / HTTP/1.1" 404 994
+127.0.0.1 - - [17/Apr/2019:08:43:17 -0300] "GET / HTTP/1.1" 404 994
+127.0.0.1 - - [17/Apr/2019:08:43:46 -0300] "GET / HTTP/1.1" 404 994
+127.0.0.1 - - [17/Apr/2019:08:43:48 -0300] "GET /EmailClient/index.jsp HTTP/1.1" 200 372
+127.0.0.1 - - [17/Apr/2019:08:44:04 -0300] "POST /EmailClient/login.jsp HTTP/1.1" 500 2979
+127.0.0.1 - - [17/Apr/2019:08:47:49 -0300] "GET /EmailClient/index.jsp HTTP/1.1" 200 372
+127.0.0.1 - - [17/Apr/2019:08:47:56 -0300] "POST /EmailClient/login.jsp HTTP/1.1" 200 169
+127.0.0.1 - - [17/Apr/2019:08:48:10 -0300] "POST /EmailClient/login.jsp HTTP/1.1" 200 169
+127.0.0.1 - - [17/Apr/2019:08:49:13 -0300] "POST /EmailClient/login.jsp HTTP/1.1" 200 169
+127.0.0.1 - - [17/Apr/2019:08:49:26 -0300] "POST /EmailClient/login.jsp HTTP/1.1" 200 169
+127.0.0.1 - - [17/Apr/2019:08:49:47 -0300] "GET /EmailClient/index.jsp HTTP/1.1" 200 378
+127.0.0.1 - - [17/Apr/2019:08:49:54 -0300] "POST /EmailClient/login.jsp HTTP/1.1" 200 175

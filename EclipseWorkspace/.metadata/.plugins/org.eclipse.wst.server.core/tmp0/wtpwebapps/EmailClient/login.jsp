@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+    pageEncoding="ISO-8859-1" import="beans.LoginBean"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,7 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<jsp:useBean id="loginBean" class="LoginBean.java"></jsp:useBean>
+	<jsp:useBean id="loginBean" class="beans.LoginBean"></jsp:useBean>
 	<jsp:setProperty name="loginBean" property="*"/>
+	<%= loginBean %>
 </body>
 </html>
