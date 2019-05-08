@@ -1,8 +1,7 @@
 INDEX VERSION 1.4+/home/artur/Projetos/Cotuca/5oSemestre/DesInt/email-client-java/EclipseWorkspace/.metadata/.plugins/org.eclipse.wst.jsdt.core/indexes
 1066318183.index
-2514451789.index
-724036683.index
 737546413.index
+724036683.index
+2514451789.index
 446102938.index
 3636903390.index
-1370640413.index

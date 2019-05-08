@@ -9,6 +9,9 @@
 <body>
 	<jsp:useBean id="loginBean" class="beans.LoginBean"></jsp:useBean>
 	<jsp:setProperty name="loginBean" property="*"/>
-	<%= loginBean %>
+	<%
+		//autenticar(username, password)
+		response.sendRedirect("index.jsp");
+	%>
 </body>
 </html>

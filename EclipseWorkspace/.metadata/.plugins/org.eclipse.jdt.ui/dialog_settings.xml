@@ -49,4 +49,8 @@
 		<item key="DIALOG_HEIGHT" value="937"/>
 		<item key="DIALOG_FONT_NAME" value="1|San Francisco Text|9.0|0|GTK|1|"/>
 	</section>
+	<section name="RenameInformationPopup">
+	</section>
+	<section name="org.eclipse.ltk.ui.refactoring.settings">
+	</section>
 </section>
