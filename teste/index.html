@@ -29,14 +29,16 @@
 </style>
 </head>
 <body>
-    <center>
-        <form class="formLogin" action="index.html" method="post">
+    <form class="formLogin" action="index.html" method="post">
+        <center>
+            <input type="text" />
+            <input type="text" />
 
-        </form>
-    </center>
+            <input type="submit" />
+        </center>    
+    </form>
+
     <canvas class="background"></canvas>
-
-
 
     <script type="text/javascript">
         window.onload = function() {
@@ -45,7 +47,7 @@
                 color: ['#DA0463', '#404B69', '#DBEDF3'],
                 connectParticles: true,
                 maxParticles: 200,
-                speed: 2.5
+                speed: 1
             });
 
         };
