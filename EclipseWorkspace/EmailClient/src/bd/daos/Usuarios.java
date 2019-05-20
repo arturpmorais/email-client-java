@@ -108,15 +108,16 @@ public class Usuarios {
             String sql;
 
             sql = "INSERT INTO USUARIO " +
-                  "(ID,EMAIL,SENHA) " +
+                  "(ID,NOME,EMAIL,SENHA) " +
                   "VALUES " +
-                  "(?,?,?)";
+                  "(?,?,?,?)";
 
             BDSQLServer.COMANDO.prepareStatement(sql);
 
             BDSQLServer.COMANDO.setInt(1, usuario.getId());
-            BDSQLServer.COMANDO.setString(2, usuario.getEmail());
-            BDSQLServer.COMANDO.setString(3, usuario.getSenha());
+            BDSQLServer.COMANDO.setString(2, usuario.getNome());
+            BDSQLServer.COMANDO.setString(3, usuario.getEmail());
+            BDSQLServer.COMANDO.setString(4, usuario.getSenha());
 
             BDSQLServer.COMANDO.executeUpdate();
             BDSQLServer.COMANDO.commit();
@@ -160,15 +161,17 @@ public class Usuarios {
             String sql;
 
             sql = "UPDATE USUARIO " +
-                  "SET EMAIL=? , " +
+                  "SET NOME=? , " +
+                  "EMAIL=? " +
                   "SENHA=? " +
                   "WHERE ID = ?";
 
             BDSQLServer.COMANDO.prepareStatement (sql);
 
-            BDSQLServer.COMANDO.setString(1, usuario.getEmail());
-            BDSQLServer.COMANDO.setString(2, usuario.getSenha());
-            BDSQLServer.COMANDO.setInt(3, usuario.getId());
+            BDSQLServer.COMANDO.setString(1, usuario.getNome());
+            BDSQLServer.COMANDO.setString(2, usuario.getEmail());
+            BDSQLServer.COMANDO.setString(3, usuario.getSenha());
+            BDSQLServer.COMANDO.setInt(4, usuario.getId());
 
             BDSQLServer.COMANDO.executeUpdate();
             BDSQLServer.COMANDO.commit();
@@ -196,7 +199,7 @@ public class Usuarios {
             if (!resultado.first())
                 throw new Exception ("Usuario nao cadastrado!");
 
-            usuario = new Usuario(resultado.getInt("ID"), resultado.getString("EMAIL"), resultado.getString("SENHA"));
+            usuario = new Usuario(resultado.getInt("ID"), resultado.getString("NOME"), resultado.getString("EMAIL"), resultado.getString("SENHA"));
         }
         catch (SQLException erro) {
             throw new Exception (erro.getMessage());
@@ -224,7 +227,7 @@ public class Usuarios {
             if (!resultado.first())
                 throw new Exception ("Usuario nao cadastrado!");
 
-            usuario = new Usuario(resultado.getInt("ID"), resultado.getString("EMAIL"), resultado.getString("SENHA"));
+            usuario = new Usuario(resultado.getInt("ID"), resultado.getString("NOME"), resultado.getString("EMAIL"), resultado.getString("SENHA"));
         }
         catch (SQLException erro) {
             throw new Exception (erro.getMessage());

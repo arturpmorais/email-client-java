@@ -5,6 +5,7 @@
 
 create table Usuario(
 	id    int identity primary key,
+	nome  varchar(50) not null,
 	email varchar(50) not null,
 	senha varchar(50) not null,
 )
