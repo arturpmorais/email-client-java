@@ -21,7 +21,7 @@ public class EmailHandler {
 
         properties.put(parseProperty("mail", protocol, "host"), parseProperty("mail", host, "com"));
         properties.put(parseProperty("mail", protocol, "port"), port);
-        properties.put("mail.imap.starttls.enable", "true");
+        properties.put(parseProperty("mail", protocol, "starttls", "enable"), "true");
 
 
         /* codigo caso seja desejado fazer a conexao em POP3:
@@ -31,6 +31,7 @@ public class EmailHandler {
         propriedades.put("mail.pop3.starttls.enable", "true");
 
         */
+        
         this.mySession = Session.getDefaultInstance(properties);
         this.myStore = mySession.getStore("imaps");
         this.myStore.connect("imap.gmail.com", emailAddress, password);
@@ -61,7 +62,7 @@ public class EmailHandler {
 	public void createFolder(String folderName) throws Exception {
         Folder newFolder = myStore.getFolder(folderName);
         
-        if(newFolder.exists())
+        if (newFolder.exists())
         	throw new Exception("There's already a folder with this name!");
         
         if (newFolder.create(Folder.HOLDS_MESSAGES))
@@ -99,8 +100,8 @@ public class EmailHandler {
         Folder inboxFolder = myStore.getFolder("INBOX");
         try {
             inboxFolder.open(Folder.READ_ONLY);
-            
             return inboxFolder.getMessages();
+            
         } finally {
             inboxFolder.close();
         }
