@@ -23,52 +23,55 @@ public class Email {
 		this.setProtocolo(protocolo);
 	}
 
-	public int getId(){
+	public int getId() {
 		return this.id;
 	}
 
-	public void setId(int id){
+	public void setId(int id) {
 		this.id = id;
 	}
 
-	public int getIdDono(){
+	public int getIdDono() {
 		return this.idDono;
 	}
 
-	public void setIdDono(int id) throws Exception{
+	public void setIdDono(int id) throws Exception {
 		if (id <= 0)
 			throw new Exception("ID invalido!");
 
 		this.idDono = id;
 	}
 
-	public String getEmail(){
+	public String getEmail() {
 		return this.email;
 	}
 
-	public void setEmail(String email) throws Exception{
+	public void setEmail(String email) throws Exception {
 		if (email == null)
 			throw new Exception("Email ausente!");
+
+		if (email.length() == 50) 
+			throw new Exception("Email muito grande!");
 
 		this.email = email;
 	}
 
-	public String getSenha(){
+	public String getSenha() {
 		return this.senha;
 	}
 
-	public void setSenha(String senha) throws Exception{
+	public void setSenha(String senha) throws Exception {
 		if (senha == null)
 			throw new Exception("Senha ausente!");
 
 		this.senha = senha;
 	}
 
-	public int getPorta(){
+	public int getPorta() {
 		return this.porta;
 	}
 
-	public void setPorta(int porta) throws Exception{
+	public void setPorta(int porta) throws Exception {
 		if (porta <= 0)
 			throw new Exception("Porta invalida!");
 
@@ -79,15 +82,21 @@ public class Email {
 		return host;
 	}
 
-	public void setHost(String host) {
+	public void setHost(String host) throws Exception {
+		if (host == null) 
+			throw new Exception("Host ausente!");
+
+		if (host.length() == 30) 
+			throw new Exception("Host invalido!");
+
 		this.host = host;
 	}
 
-	public String getProtocolo(){
+	public String getProtocolo() {
 		return this.protocolo;
 	}
 
-	public void setProtocolo(String protocolo) throws Exception{
+	public void setProtocolo(String protocolo) throws Exception {
 		
 		if (protocolo == null)
 			throw new Exception("Protocolo ausente!");

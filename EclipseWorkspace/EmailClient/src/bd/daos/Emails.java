@@ -77,9 +77,9 @@ public class Emails {
             String sql;
 
             sql = "INSERT INTO EMAIL " +
-                  "(ID,IDDONO,EMAIL,SENHA,PORTA,PROTOCOLO) " +
+                  "(ID,IDDONO,EMAIL,SENHA,PORTA,HOST,PROTOCOLO) " +
                   "VALUES " +
-                  "(?,?,?,?,?,?)";
+                  "(?,?,?,?,?,?,?)";
 
             BDSQLServer.COMANDO.prepareStatement(sql);
 
@@ -88,7 +88,8 @@ public class Emails {
             BDSQLServer.COMANDO.setString(3, email.getEmail());
             BDSQLServer.COMANDO.setString(4, email.getSenha());
             BDSQLServer.COMANDO.setInt(5, email.getPorta());
-            BDSQLServer.COMANDO.setString(6, email.getProtocolo());
+            BDSQLServer.COMANDO.setString(6, email.getHost());
+            BDSQLServer.COMANDO.setString(7, email.getProtocolo());
 
             BDSQLServer.COMANDO.executeUpdate();
             BDSQLServer.COMANDO.commit();
@@ -132,6 +133,7 @@ public class Emails {
                   "SET EMAIL=? , " +
                   "SENHA=? , " +
                   "PORTA=? ," +
+                  "HOST=? ," +
                   "PROTOCOLO=? , " +
                   "WHERE ID = ?";
 
@@ -140,8 +142,9 @@ public class Emails {
             BDSQLServer.COMANDO.setString(1, email.getEmail());
             BDSQLServer.COMANDO.setString(2, email.getSenha());
             BDSQLServer.COMANDO.setInt(3, email.getPorta());
-            BDSQLServer.COMANDO.setString(4, email.getProtocolo());
-            BDSQLServer.COMANDO.setInt(5, email.getId());
+            BDSQLServer.COMANDO.setString(4, email.getHost());
+            BDSQLServer.COMANDO.setString(5, email.getProtocolo());
+            BDSQLServer.COMANDO.setInt(6, email.getId());
 
             BDSQLServer.COMANDO.executeUpdate();
             BDSQLServer.COMANDO.commit();
@@ -170,7 +173,7 @@ public class Emails {
                 throw new Exception ("Email nao cadastrado!");
 
             email = new Email(resultado.getInt("ID"), resultado.getInt("ID_DONO"), resultado.getString("EMAIL"), 
-                resultado.getString("SENHA"), resultado.getInt("PORTA"), resultado.getString("PROTOCOLO"));
+                resultado.getString("SENHA"), resultado.getInt("PORTA"), resultado.getString("HOST"), resultado.getString("PROTOCOLO"));
         }
         catch (SQLException erro) {
             throw new Exception (erro.getMessage());

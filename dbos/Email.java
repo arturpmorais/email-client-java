@@ -8,6 +8,7 @@ public class Email {
 	protected String email;
 	protected String senha;
 	protected int porta;
+	protected String host;
 	protected String protocolo;
 
 	public Email() {}
@@ -35,9 +36,9 @@ public class Email {
 
 	public void setIdDono(int id) throws Exception{
 		if (id <= 0)
-			throw new Exception('ID inválido!');
+			throw new Exception("ID inválido!");
 		if (id == null)
-			throw new Exception('ID ausente!');
+			throw new Exception("ID ausente!");
 
 		this.idDono = id;
 	}
@@ -48,7 +49,7 @@ public class Email {
 
 	public void setEmail(String email) throws Exception{
 		if (email == null)
-			throw new Exception('Email ausente!');
+			throw new Exception("Email ausente!");
 
 		this.email = email;
 	}
@@ -59,7 +60,7 @@ public class Email {
 
 	public void setSenha(String senha) throws Exception{
 		if (senha == null)
-			throw new Exception('Senha ausente!');
+			throw new Exception("Senha ausente!");
 
 		this.senha = senha;
 	}
@@ -70,9 +71,9 @@ public class Email {
 
 	public void setPorta(int porta) throws Exception{
 		if (porta <= 0)
-			throw new Exception('Porta inválida!');
+			throw new Exception("Porta inválida!");
 		if (porta == null)
-			throw new Exception('Porta ausente!');
+			throw new Exception("Porta ausente!");
 
 		this.porta = porta;
 	}
@@ -83,9 +84,9 @@ public class Email {
 
 	public void setProtocolo(int protocolo) throws Exception{
 		if (protocolo <= 0)
-			throw new Exception('Protocolo inválida!');
+			throw new Exception("Protocolo inválida!");
 		if (protocolo == null)
-			throw new Exception('Protocolo ausente!');
+			throw new Exception("Protocolo ausente!");
 		
 		this.protocolo = protocolo;
 	}

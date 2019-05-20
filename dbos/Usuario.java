@@ -29,7 +29,7 @@ public class Usuario {
 
 	public void setEmail(String email) throws Exception{
 		if (email == null)
-			throw new Exception('Email ausente!');
+			throw new Exception("Email ausente!");
 
 		this.email = email;
 	}
@@ -40,7 +40,7 @@ public class Usuario {
 
 	public void setSenha(String senha) throws Exception{
 		if (senha == null)
-			throw new Exception('Senha ausente!');
+			throw new Exception("Senha ausente!");
 
 		this.senha = senha;
 	}

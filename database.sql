@@ -25,5 +25,6 @@ create table Email(
 	email     varchar(50) not null,
 	senha     varchar(50) not null,
 	porta     int         not null,
+	host      varchar(30) not null,
 	protocolo varchar(4)  not null
 )
