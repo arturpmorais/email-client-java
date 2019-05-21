@@ -184,7 +184,7 @@ public class Emails {
     }
 
     public static ArrayList<Email> getEmails(int idDono) throws Exception {
-        ArrayList<Email> emails;
+        ArrayList<Email> emails = new ArrayList<Email>();
         MeuResultSet resultado = null;
 
         try {

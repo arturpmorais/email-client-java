@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
+	<item key="org.eclipse.jdt.ui.lastextjar" value="/home/artur/Downloads"/>
 	<section name="SourceActionDialog.methods">
 		<item key="SynchronizedModifier" value="false"/>
 		<item key="Comments" value="false"/>

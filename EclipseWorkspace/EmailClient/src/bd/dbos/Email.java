@@ -13,6 +13,11 @@ public class Email {
 
 	public Email() {}
 
+	public Email(int id, String email) throws Exception {
+		this.setId(id);
+		this.setEmail(email);
+	}
+	
 	public Email(int id, int idDono, String email, String senha, int porta, String host, String protocolo) throws Exception {
 		this.setId(id);
 		this.setIdDono(idDono);

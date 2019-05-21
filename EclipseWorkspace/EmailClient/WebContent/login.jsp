@@ -11,7 +11,7 @@
 	<jsp:useBean id="loginBean" class="beans.LoginBean"></jsp:useBean>
 	<jsp:setProperty name="loginBean" property="*"/>
 	<%
-		session.setAttribute("usuario", new Usuario(15, "arturpmrs@gmail.com", "senha"));
+		session.setAttribute("usuario", new Usuario(15, "artur", "arturpmrs@gmail.com", "senha"));
 		response.sendRedirect("principal.jsp");
 		
 		/*
