@@ -70,26 +70,27 @@ public class Usuarios {
     public static boolean autenticarLogin(LoginBean usuario) throws Exception {
     	boolean retorno = false;
 
-        try {
-            String sql;
+        if (!this.cadastrado(usuario.getEmail()))
+            throw new Exception("Usuário não cadastrado!");
 
-            sql = "SELECT * " +
-                  "FROM USUARIO " +
-                  "WHERE EMAIL = ?" + 
-                  "AND SENHA = ?";
+        String sql;
 
-            BDSQLServer.COMANDO.prepareStatement(sql);
+        sql = "SELECT * " +
+              "FROM USUARIO " +
+              "WHERE EMAIL = ?" + 
+              "AND SENHA = ?";
 
-            BDSQLServer.COMANDO.setString(1, usuario.getEmail());
-            BDSQLServer.COMANDO.setString(2, usuario.getSenha());
+        BDSQLServer.COMANDO.prepareStatement(sql);
 
-            MeuResultSet resultado = (MeuResultSet)BDSQLServer.COMANDO.executeQuery();
+        BDSQLServer.COMANDO.setString(1, usuario.getEmail());
+        BDSQLServer.COMANDO.setString(2, usuario.getSenha());
 
-            retorno = resultado.first();
-            
-        } catch (SQLException erro) {
-            throw new Exception (erro.getMessage());
-        }
+        MeuResultSet resultado = (MeuResultSet)BDSQLServer.COMANDO.executeQuery();
+
+        retorno = resultado.first();
+
+        if (!retorno && this.cadastrado(usuario.getEmail())) 
+            throw new Exception ("Senha errada!");
 
         return retorno;
     }
