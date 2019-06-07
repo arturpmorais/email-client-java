@@ -29,3 +29,7 @@ create table Email(
 	host      varchar(30) not null,
 	protocolo varchar(4)  not null
 )
+
+--insert para testes--
+insert into Usuario values('Artur Morais', 'arturpmrs@gmail.com', 'senha')
+insert into Usuario values('Felipe Corerato', 'fcorerato@gmail.com', 'senha')
