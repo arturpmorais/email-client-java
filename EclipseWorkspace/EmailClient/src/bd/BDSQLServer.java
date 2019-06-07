@@ -16,12 +16,12 @@ public class BDSQLServer
             comando =
             new MeuPreparedStatement (
             "com.microsoft.sqlserver.jdbc.SQLServerDriver",
-            "jdbc:sqlserver://regulus:1433;databasename=BD17164",
-            "BD17164", "lixxxo");
+            "jdbc:sqlserver://143.106.250.84:1433;databasename=BD17175",
+            "BD17175", "BD17175");
         }
         catch (Exception erro)
         {
-            System.err.println ("Problemas de conexao com o BD");
+            System.err.println ("Problemas de conexao com o BD" + erro.getMessage() + erro.getClass() + erro.getStackTrace());
             System.exit(0); // aborta o programa
         }
         

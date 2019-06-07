@@ -70,14 +70,14 @@ public class Usuarios {
     public static boolean autenticarLogin(LoginBean usuario) throws Exception {
     	boolean retorno = false;
 
-        if (!this.cadastrado(usuario.getEmail()))
+        if (!cadastrado(usuario.getEmail()))
             throw new Exception("Usuário não cadastrado!");
 
         String sql;
 
         sql = "SELECT * " +
               "FROM USUARIO " +
-              "WHERE EMAIL = ?" + 
+              "WHERE EMAIL = ? " + 
               "AND SENHA = ?";
 
         BDSQLServer.COMANDO.prepareStatement(sql);
@@ -89,7 +89,7 @@ public class Usuarios {
 
         retorno = resultado.first();
 
-        if (!retorno && this.cadastrado(usuario.getEmail())) 
+        if (!retorno && cadastrado(usuario.getEmail())) 
             throw new Exception ("Senha errada!");
 
         return retorno;

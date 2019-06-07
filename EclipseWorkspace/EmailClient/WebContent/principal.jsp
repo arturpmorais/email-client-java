@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" 
-    import="bd.dbos.*, bd.daos.*, email.EmailHandler, javax.mail.*, javax.mail.internet.*"%>
+    import="bd.dbos.*, bd.daos.*, email.EmailHandler, javax.mail.*, javax.mail.internet.*, java.util.*"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,31 +10,73 @@
 <jsp:include page="header.jsp"></jsp:include>
 <style>
 	.btn {
-    text-transform: none;
-}
+	    text-transform: none;
+	}
+	
+	.input-field {
+    	color: #673AB7;	
+    }
 </style>
 </head>
 <body>
-	<% 
-		Email[] todosEmails = {new Email(1, "art@ur"), new Email(2, "pra@to"), new Email(3, "ter@ra")};
-		request.setAttribute("todosEmails", todosEmails);
+	<%
+		ArrayList<Email> todosEmails = null;
+		ArrayList<EmailHandler> todosEmailHandlers = null;
+		ArrayList<Message> todasMensagens = null;
+	
 		if(session.getAttribute("usuario") == null) {
 			session.setAttribute("erroLogin", "Você precisa estar logado para acessar o site.");
 			response.sendRedirect("index.jsp");
 		}
-		Usuario usuario = (Usuario)session.getAttribute("usuario");
-		//request.setAttribute("emails", Emails.getEmails(usuario.getId()));
+		else {
+			Usuario usuario = (Usuario)session.getAttribute("usuario");
+			todosEmails = Emails.getEmails(usuario.getId());
+			todosEmailHandlers = new ArrayList<EmailHandler>();
+			
+			for(int i = 0; i < todosEmails.size(); i++) {
+				todosEmailHandlers.add(new EmailHandler(todosEmails.get(i)));
+			}
+			
+			session.setAttribute("todosEmails", todosEmails);	
+		}
+			
+		//if(!Emails.getEmails(usuario.getId()).isEmpty())
+			//session.setAttribute("emails", Emails.getEmails(usuario.getId()));
 	%>
-	<%= (Usuario)session.getAttribute("usuario") %>
+	
+	<nav class="grey darken-3"> <!-- navbar content here  --> </nav>
+
+	<ul id="slide-out" class="sidenav">
+		<li>
+			<div class="user-view">
+				<div class="background">
+				  <img style="height: 100%; width: 100%;" src="img/1.jpg">
+				</div>
+				<a href="#user"><img class="circle" src="images/yuna.jpg"></a>
+				<a href="#name"><span class="white-text name">${ usuario.getNome() }</span></a>
+				<a href="#email"><span class="white-text email">${ usuario.getEmail() }</span></a>
+			</div>
+		</li>
+		<li><a href="#!"><i class="material-icons">cloud</i>First Link With Icon</a></li>
+		<li><a href="#!">Second Link</a></li>
+		<li><div class="divider"></div></li>
+		<li><a class="subheader">Subheader</a></li>
+		<li><a class="waves-effect" href="#!">Third Link With Waves</a></li>
+	</ul>
+	<a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">settings</i></a>
+	
 	<form action="logout.jsp" id="formLogout">
-		<input type="submit" id="btnLogout" value="deslogar"/>
+		<button type="submit" id="btnLogoutBasic" value="deslogar" class="grey darken-3 btn waves-effect waves-light">
+			Deslogar
+			<i class="material-icons left">exit_to_app</i>
+		</button>
 	</form>
 	
 	<a class="waves-effect waves-light btn modal-trigger" href="#modal1">enviar email</a>
 
 	<!-- Modal Structure -->
 	<div id="modal1" class="modal">
-	  <div class="modal-content">
+	  <div class="modal-content container">
 	    <h4>Modal Header</h4>  
 		<form action="enviarEmail.jsp" id="formEmail">
 			Novo Email
@@ -53,9 +95,16 @@
 			<br>
 			<input type="text" placeholder="assunto:" name="assunto" id="assunto"/>
 			<br>
+			<div class="input-field col s12">
+	          <textarea id="textarea1" class="materialize-textarea"></textarea>
+	          <label for="textarea1">Textarea</label>
+	        </div>
 			<input type="text" placeholder="conteudo:" name="conteudo" id="conteudo"/>
 			<br>
-			<input type="submit" id="botao" value="Enviar e-mail"/>
+			<button type="submit" id="botao" class="btn deep-purple" value="Enviar e-mail">
+				Enviar e-mail
+				<i class="material-icons right">send</i>
+			</button>
 		</form>
 	  </div>
 	  <div class="modal-footer">
@@ -69,29 +118,57 @@
 		<li class="collection-header">
 		    <h4>Emails</h4>
 		</li>
-	<%  
-		try {
-			//Message[] todasMensagens = (Message[])session.getAttribute("todosEmails");
-			//request.setAttribute("erroMensagens", (todasMensagens.length == 0 || todasMensagens == null));
-		} finally {}	
-	%>
-	
-	<c:catch var="ex">
-		<li>Erro ao carregar as mensagens! ${ex.getMessage()}</li>
-	</c:catch>
-	
-	<c:if test="${erroMensagens}">
-		<li>Nenhuma mensagem disponível!</li>
-	</c:if>
-	
-	<c:forEach var="mensagemAtual" items="${todasMensagens}">
-		<li class="collection-item avatar">
-		  <img src="images/yuna.jpg" alt="" class="circle">
-		  <span class="title"><c:out value="${mensagemAtual}"></c:out></span>
-		  <p> <br></p>
-		  <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
-		</li>
-	</c:forEach>
+				
+		<c:catch var="erroCarregarMensagens">
+			<%	
+				int qtosEmails = 0;
+				todasMensagens = new ArrayList<Message>();
+				for(EmailHandler emailAtual : todosEmailHandlers) {
+					Message[] mensagens = emailAtual.listInboxEmails();
+					for(int i = 0; i < mensagens.length; i++) {
+						todasMensagens.add(mensagens[i]);
+					}
+				}
+
+				todasMensagens.sort(
+					new Comparator<Message>() {
+						@Override
+						public int compare(Message m1, Message m2) {
+							try {
+								return m2.getReceivedDate().compareTo(m1.getReceivedDate());
+							} catch (Exception e) {
+								return -1;
+							}
+						}
+					}
+				);
+				
+				if (todasMensagens.size() == 0 || todasMensagens == null)
+					throw new Exception("Você não possui nenhuma mensagem");
+				
+				session.setAttribute("todasMensagens", todasMensagens);
+			%>
+		</c:catch>
+		
+		<c:if test="${erroCarregarMensagens != null}">
+			<li>Nenhuma mensagem disponível! + ${erroCarregarMensagens.getCause()}</li>
+		</c:if>
+		<!--  
+			<li class="collection-item avatar">
+				<img src="images/yuna.jpg" alt="" class="circle">
+				<span class="title"><c:out value="${mensagemAt}"></c:out></span>
+				<p><c:out value="${mensagemAt.getReceivedDate()}"></c:out> <br></p>
+				<a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
+			</li>
+		-->
+		<c:forEach var="mensagemAtual" items="${sessionScope.todasMensagens}">
+			<li class="collection-item avatar">
+			  <img src="images/yuna.jpg" alt="" class="circle">
+			  <span class="title"><c:out value="${mensagemAtual.getSubject()}"></c:out></span>
+			  <p><c:out value="${mensagemAtual.getReceivedDate()}"></c:out> <br></p>
+			  <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
+			</li>
+		</c:forEach>
 		
 	</ul>
             
@@ -103,6 +180,10 @@
 		
 		$(document).ready(function(){
 		    $('.modal').modal();
+		});
+		
+		$(document).ready(function(){
+		    $('.sidenav').sidenav();
 		});
             
 		$(document).ready(function () {

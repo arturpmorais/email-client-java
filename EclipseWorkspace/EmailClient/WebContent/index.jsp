@@ -26,10 +26,27 @@
         z-index: -1;
         background-color: #303030;
     }
+    
+    .input-field {
+    	color: #673AB7;	
+    }
+    
+    textarea:focus {
+		border-bottom: 1px solid orange !important
+		-webkit-box-shadow: 0 1px 0 0 orange;
+		-moz-box-shadow: 0 1px 0 0 orange;
+		box-shadow: 0 1px 0 0 orange;
+	}
 
 </style>
 </head>
 <body>
+	<div class="row">
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+	</div>
 	<div class="valign-wrapper row login-box">
 	  <div class="col card s10 pull-s1 m6 pull-m3 l4 pull-l4">
 	    <form method="POST" action="login.jsp">
@@ -47,8 +64,10 @@
 	        </div>
 	      </div>
 	      <div class="card-action center-align">
-	        <input type="reset" id="reset" class="btn-flat grey-text waves-effect">
-	        <input type="submit" class="btn deep-purple waves-effect waves-light white-text" value="Login">
+	        <input type="reset" id="reset" class="btn-flat pink-text darken-1 waves-effect offset-s2 col s4">
+	        <input type="submit" class="btn pink darken-1 white-text col s4" value="Login">
+	        <br>
+	        <br>
 	      </div>
 	    </form>
 	  </div>
@@ -75,8 +94,8 @@
                 selector: '.background',
                 color: ['#DA0463', '#404B69', '#DBEDF3'],
                 connectParticles: true,
-                maxParticles: 150,
-                speed: 0.2
+                maxParticles: 250,
+                speed: 0.5
         	});
 		};
 	</script>

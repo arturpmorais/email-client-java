@@ -187,29 +187,28 @@ public class Emails {
         ArrayList<Email> emails = new ArrayList<Email>();
         MeuResultSet resultado = null;
 
-        try {
-            String sql;
+        String sql;
 
-            sql = "SELECT * " +
-                  "FROM EMAIL" +
-                  "WHERE ID_DONO = ?";                  
+        sql = "SELECT * " +
+              "FROM EMAIL ";
+       //       "WHERE ID_DONO = ?";                  
 
-            BDSQLServer.COMANDO.prepareStatement(sql);
+        BDSQLServer.COMANDO.prepareStatement(sql);
 
-            BDSQLServer.COMANDO.setInt(1, idDono);
+        //BDSQLServer.COMANDO.setInt(1, idDono);
 
-            resultado = (MeuResultSet)BDSQLServer.COMANDO.executeQuery();
+        resultado = (MeuResultSet)BDSQLServer.COMANDO.executeQuery();
 
-            if (!resultado.first())
-                throw new Exception ("Voce nao possui emails!");
-
-            while (resultado.next()) {
-                emails.add(new Email(resultado.getInt("ID"), resultado.getInt("ID_DONO"), resultado.getString("EMAIL"), 
-                            resultado.getString("SENHA"), resultado.getInt("PORTA"), resultado.getString("HOST"), resultado.getString("PROTOCOLO")));
-            }
-
-        } catch (SQLException erro) {
-            throw new Exception(erro.getMessage());
+        while (resultado.next()) {
+            emails.add(new Email(
+            		resultado.getInt("ID"), 
+            		resultado.getInt("ID_DONO"), 
+            		resultado.getString("EMAIL"), 
+                    resultado.getString("SENHA"), 
+                    resultado.getInt("PORTA"), 
+                    resultado.getString("HOST"), 
+                    resultado.getString("PROTOCOLO")
+                    ));
         }
 
         return emails;
