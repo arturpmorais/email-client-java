@@ -23,9 +23,9 @@ public class Teste {
 
             System.out.println("\n");
 
-            String textodecriptado = crypto.decrypt(textoencriptado, chaveencriptacao);
+            String textoDecriptado = crypto.decrypt(textoencriptado, chaveencriptacao);
 
-            System.out.println("Texto Decriptado: " + textodecriptado);
+            System.out.println("Texto Decriptado: " + textoDecriptado);
 
         } catch (Exception e) {
             e.printStackTrace();
