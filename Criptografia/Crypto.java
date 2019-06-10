@@ -6,8 +6,8 @@ import javax.crypto.Cipher;
 public class Crypto {
     /*
     * Estes atributos precisam seguir a seguinte formatacao:
-    *   IV                   => 16 bytes
-    *   Chave de encriptacao => 16 bytes
+    *   IV                   == 16 bytes
+    *   Chave de encriptacao == 16 bytes
     * */
     protected String IV;
     protected String texto;
