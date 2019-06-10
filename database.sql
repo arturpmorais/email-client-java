@@ -1,7 +1,21 @@
---usuario--
---id (pk)
---email
---senha
+use BD17175
+go
+
+--
+-- apaga objetos
+--
+
+if OBJECT_ID('Usuario') is not null
+	drop table Usuario
+go
+
+if OBJECT_ID('Email') is not null
+	drop table Email
+go
+
+--
+-- cria objetos
+--
 
 create table Usuario(
 	id    int identity primary key,
@@ -9,16 +23,6 @@ create table Usuario(
 	email varchar(50) not null,
 	senha varchar(50) not null,
 )
-
-
-
---emails--
---id (pk)
---idDono (fk para usuario)
---email
---senha
---porta
---protocolo
 
 create table Email(
 	id        int identity primary key,
@@ -30,6 +34,21 @@ create table Email(
 	protocolo varchar(4)  not null
 )
 
---insert para testes--
+--
+-- procs
+--
+
+--
+-- inserts para testes
+--
+
+-- usuarios
 insert into Usuario values('Artur Morais', 'arturpmrs@gmail.com', 'senha')
 insert into Usuario values('Felipe Corerato', 'fcorerato@gmail.com', 'senha')
+
+-- emails
+insert into Email   values(1, 'contatestetur000@gmail.com', 'Senha123', 993, 'gmail', 'imap')
+
+
+select * from Usuario
+Select * from Email
