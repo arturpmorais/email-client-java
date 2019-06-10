@@ -78,19 +78,18 @@ public class Emails {
             String sql;
 
             sql = "INSERT INTO EMAIL " +
-                  "(ID,IDDONO,EMAIL,SENHA,PORTA,HOST,PROTOCOLO) " +
+                  "(IDDONO,EMAIL,SENHA,PORTA,HOST,PROTOCOLO) " +
                   "VALUES " +
-                  "(?,?,?,?,?,?,?)";
+                  "(?,?,?,?,?,?)";
 
             BDSQLServer.COMANDO.prepareStatement(sql);
 
-            BDSQLServer.COMANDO.setInt(1, email.getId());
-            BDSQLServer.COMANDO.setInt(2, email.getIdDono());
-            BDSQLServer.COMANDO.setString(3, email.getEmail());
-            BDSQLServer.COMANDO.setString(4, email.getSenha());
-            BDSQLServer.COMANDO.setInt(5, email.getPorta());
-            BDSQLServer.COMANDO.setString(6, email.getHost());
-            BDSQLServer.COMANDO.setString(7, email.getProtocolo());
+            BDSQLServer.COMANDO.setInt(1, email.getIdDono());
+            BDSQLServer.COMANDO.setString(2, email.getEmail());
+            BDSQLServer.COMANDO.setString(3, email.getSenha());
+            BDSQLServer.COMANDO.setInt(4, email.getPorta());
+            BDSQLServer.COMANDO.setString(5, email.getHost());
+            BDSQLServer.COMANDO.setString(6, email.getProtocolo());
 
             BDSQLServer.COMANDO.executeUpdate();
             BDSQLServer.COMANDO.commit();
@@ -190,12 +189,12 @@ public class Emails {
         String sql;
 
         sql = "SELECT * " +
-              "FROM EMAIL ";
-       //       "WHERE ID_DONO = ?";                  
+              "FROM EMAIL " +
+              "WHERE ID_DONO = ?";                  
 
         BDSQLServer.COMANDO.prepareStatement(sql);
 
-        //BDSQLServer.COMANDO.setInt(1, idDono);
+        BDSQLServer.COMANDO.setInt(1, idDono);
 
         resultado = (MeuResultSet)BDSQLServer.COMANDO.executeQuery();
 

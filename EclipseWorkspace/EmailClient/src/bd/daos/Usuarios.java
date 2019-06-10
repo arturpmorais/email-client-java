@@ -4,6 +4,7 @@ import bd.core.MeuResultSet;
 import bd.BDSQLServer;
 import java.sql.*;
 import bd.dbos.Usuario;
+import beans.CadastroBean;
 import beans.LoginBean;
 
 public class Usuarios {
@@ -94,6 +95,10 @@ public class Usuarios {
 
         return retorno;
     }
+    
+    public static void incluir(CadastroBean usuario) throws Exception {
+    	incluir(new Usuario(usuario.getNome(), usuario.getEmail(), usuario.getSenha()));
+    }
 
     public static void incluir(Usuario usuario) throws Exception {
         if (usuario == null)
@@ -109,16 +114,15 @@ public class Usuarios {
             String sql;
 
             sql = "INSERT INTO USUARIO " +
-                  "(ID,NOME,EMAIL,SENHA) " +
+                  "(NOME,EMAIL,SENHA) " +
                   "VALUES " +
-                  "(?,?,?,?)";
+                  "(?,?,?)";
 
             BDSQLServer.COMANDO.prepareStatement(sql);
 
-            BDSQLServer.COMANDO.setInt(1, usuario.getId());
-            BDSQLServer.COMANDO.setString(2, usuario.getNome());
-            BDSQLServer.COMANDO.setString(3, usuario.getEmail());
-            BDSQLServer.COMANDO.setString(4, usuario.getSenha());
+            BDSQLServer.COMANDO.setString(1, usuario.getNome());
+            BDSQLServer.COMANDO.setString(2, usuario.getEmail());
+            BDSQLServer.COMANDO.setString(3, usuario.getSenha());
 
             BDSQLServer.COMANDO.executeUpdate();
             BDSQLServer.COMANDO.commit();

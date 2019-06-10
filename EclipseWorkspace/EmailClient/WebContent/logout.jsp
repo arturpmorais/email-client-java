@@ -10,6 +10,7 @@
 	<%
 		session.removeAttribute("usuario");
 		session.removeAttribute("erroLogin");
+		session.removeAttribute("todasMensagens");
 		response.sendRedirect("index.jsp");
 	%>
 </body>

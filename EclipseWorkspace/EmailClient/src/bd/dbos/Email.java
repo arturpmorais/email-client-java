@@ -18,6 +18,15 @@ public class Email {
 		this.setEmail(email);
 	}
 	
+	public Email(int idDono, String email, String senha, int porta, String host, String protocolo) throws Exception {
+		this.setIdDono(idDono);
+		this.setEmail(email);
+		this.setSenha(senha);
+		this.setPorta(porta);
+		this.setHost(host);
+		this.setProtocolo(protocolo);
+	}
+	
 	public Email(int id, int idDono, String email, String senha, int porta, String host, String protocolo) throws Exception {
 		this.setId(id);
 		this.setIdDono(idDono);

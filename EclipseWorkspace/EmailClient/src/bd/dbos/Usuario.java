@@ -9,6 +9,12 @@ public class Usuario {
 	protected String senha;
 
 	public Usuario() {}
+	
+	public Usuario(String nome, String email, String senha) throws Exception {
+		this.setNome(nome);
+		this.setEmail(email);
+		this.setSenha(senha);
+	}
 
 	public Usuario(int id, String nome, String email, String senha) throws Exception {
 		this.setId(id);

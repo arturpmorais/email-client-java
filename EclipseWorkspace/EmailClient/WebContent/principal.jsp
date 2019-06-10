@@ -44,7 +44,7 @@
 			//session.setAttribute("emails", Emails.getEmails(usuario.getId()));
 	%>
 	
-	<nav class="grey darken-3"> <!-- navbar content here  --> </nav>
+	<nav class="grey darken-3"> ${usuario.getId()} <!-- navbar content here  --> </nav>
 
 	<ul id="slide-out" class="sidenav">
 		<li>
@@ -92,6 +92,44 @@
 				</select>
 			</div>
 			<input type="text" placeholder="enviar para:" name="emailDestino" id="emailDestino"/>
+			<br>
+			<input type="text" placeholder="assunto:" name="assunto" id="assunto"/>
+			<br>
+			<div class="input-field col s12">
+	          <textarea id="textarea1" class="materialize-textarea"></textarea>
+	          <label for="textarea1">Textarea</label>
+	        </div>
+			<input type="text" placeholder="conteudo:" name="conteudo" id="conteudo"/>
+			<br>
+			<button type="submit" id="botao" class="btn deep-purple" value="Enviar e-mail">
+				Enviar e-mail
+				<i class="material-icons right">send</i>
+			</button>
+		</form>
+	  </div>
+	  <div class="modal-footer">
+	    <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+	  </div>
+	</div>
+	
+	<!-- Modal Structure -->
+	<div id="modal2" class="modal">
+	  <div class="modal-content container">
+	    <h4>cadastrar novo e-mail</h4>  
+		<form action="enviarEmail.jsp" id="formEmail">
+			Novo Email
+			<br>
+			<div class="input-field col s12">
+				<select name="cbxEmails">
+				    <option value="" disabled selected>selecione o email de origem</option>		    
+				    <c:forEach var="email" items="${todosEmails}">
+				        <option value="${email.getEmail()}">
+				            ${email.getEmail()}
+				        </option>
+				     </c:forEach>
+				</select>
+			</div>
+			<input type="text" placeholder="endereço de e-mail:" name="enderecoEmail" id="enderecoEmail"/>
 			<br>
 			<input type="text" placeholder="assunto:" name="assunto" id="assunto"/>
 			<br>
