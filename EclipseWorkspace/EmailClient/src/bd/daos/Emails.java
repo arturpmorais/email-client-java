@@ -78,7 +78,7 @@ public class Emails {
             String sql;
 
             sql = "INSERT INTO EMAIL " +
-                  "(IDDONO,EMAIL,SENHA,PORTA,HOST,PROTOCOLO) " +
+                  "(ID_DONO,EMAIL,SENHA,PORTA,HOST,PROTOCOLO) " +
                   "VALUES " +
                   "(?,?,?,?,?,?)";
 
@@ -149,7 +149,7 @@ public class Emails {
             BDSQLServer.COMANDO.executeUpdate();
             BDSQLServer.COMANDO.commit();
         } catch (SQLException erro) {
-            throw new Exception ("Erro ao atualizar dados de livro: " + erro.getMessage());
+            throw new Exception ("Erro ao atualizar dados de email: " + erro.getMessage());
         }
     }
 

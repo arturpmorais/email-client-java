@@ -10,12 +10,13 @@ import bd.dbos.Email;
 
 public class EmailHandler {
 	
-	protected String emailAddress, password, protocol, host, port;
+	protected String emailAddress, password, protocol, host;
+	protected int port;
 	protected Properties myProperties;
 	protected Session mySession;
 	protected Store myStore;
 	
-	public EmailHandler (String emailAddress, String password, String protocol, String host, String port) 
+	public EmailHandler (String emailAddress, String password, String protocol, String host, int port) 
 			throws Exception {
 
         this.emailAddress = emailAddress;
@@ -24,7 +25,7 @@ public class EmailHandler {
         myProperties = new Properties();
 
         myProperties.put(parseProperty("mail", protocol, "host"), parseProperty("mail", host, "com"));
-        myProperties.put(parseProperty("mail", protocol, "port"), port);
+        myProperties.put(parseProperty("mail", protocol, "port"), "" + port);
         myProperties.put(parseProperty("mail", protocol, "starttls", "enable"), "true");
 
 
@@ -43,7 +44,7 @@ public class EmailHandler {
 	
 	public EmailHandler(Email email) throws Exception { 
 		this(email.getEmail(), email.getSenha(), email.getProtocolo(), email.getHost(), 
-			Integer.toString(email.getPorta()));
+			email.getPorta());
 	}
 	
 	protected String parseProperty(String... infos) {
@@ -103,7 +104,8 @@ public class EmailHandler {
             transport.sendMessage(message, message.getAllRecipients());
             transport.close();
             
-        } catch(MessagingException e) { } catch(Exception e) { }
+        } catch(MessagingException e) { } 
+    	  catch(Exception e) { }
     	
     	/*
         Message newMessage = new MimeMessage(mySession);
@@ -168,11 +170,11 @@ public class EmailHandler {
 		this.host = host;
 	}
 
-	public String getPort() {
+	public int getPort() {
 		return port;
 	}
 
-	public void setPort(String port) {
+	public void setPort(int port) {
 		this.port = port;
 	}
 

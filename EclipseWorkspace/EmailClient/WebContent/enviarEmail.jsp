@@ -9,7 +9,9 @@
 <body>
 	<%
 		session.setAttribute("emailOrigem", request.getParameter("emailOrigem"));
-		System.out.println(request.getParameter("assunto"));
+		System.out.println(request.getParameter("assunto"));		
+		
+		response.sendRedirect("principal.jsp");
 	%>
 </body>
 </html>

@@ -57,8 +57,27 @@
 	<section name="RenameInformationPopup">
 	</section>
 	<section name="org.eclipse.ltk.ui.refactoring.settings">
+		<item key="updateSimilarElements" value="false"/>
+		<item key="updateSimilarElementsMatchStrategy" value="1"/>
+		<item key="updateTextualMatches" value="false"/>
+		<item key="updateQualifiedNames" value="false"/>
+		<item key="patterns" value="*"/>
 	</section>
 	<section name="NewPackageWizardPage">
 		<item key="create_package_info_java" value="false"/>
+	</section>
+	<section name="OverrideMethodDialog">
+		<item key="showtypes" value="true"/>
+	</section>
+	<section name="DialogBounds_OverrideMethodDialog">
+		<item key="DIALOG_X_ORIGIN" value="564"/>
+		<item key="DIALOG_Y_ORIGIN" value="42"/>
+		<item key="DIALOG_WIDTH" value="799"/>
+		<item key="DIALOG_HEIGHT" value="742"/>
+		<item key="DIALOG_FONT_NAME" value="1|San Francisco Text|9.0|0|GTK|1|"/>
+	</section>
+	<section name="RefactoringWizard.preview">
+		<item key="width" value="600"/>
+		<item key="height" value="400"/>
 	</section>
 </section>

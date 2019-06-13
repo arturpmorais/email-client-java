@@ -153,9 +153,7 @@
 		if(session.getAttribute("usuario") != null)
 			response.sendRedirect("principal.jsp");
 	
-		boolean sucessoLogin = (session.getAttribute("erroLogin") == null);
-	
-		if(!sucessoLogin) {
+		if(!(session.getAttribute("erroLogin") == null)) {
 			
 	%>
 		<script type="text/javascript">

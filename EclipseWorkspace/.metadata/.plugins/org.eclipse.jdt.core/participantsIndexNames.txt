@@ -1,5 +1,7 @@
 INDEX VERSION 1.131
-/home/artur/Projetos/Cotuca/5oSemestre/DesInt/email-client-java/EclipseWorkspace/.metadata/.plugins/org.eclipse.jst.jsp.core/jspsearch/1370640413.index
-/EmailClient/src
 C:\Users\u17164\Desktop\EclipseWorkspace\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\1187696182.index
 \EmailClient\src
+/home/artur/Projetos/Cotuca/5oSemestre/DesInt/backup/email-client-java/EclipseWorkspace/.metadata/.plugins/org.eclipse.jst.jsp.core/jspsearch/1370640413.index
+/EmailClient/src
+/home/artur/Projetos/Cotuca/5oSemestre/DesInt/email-client-java/EclipseWorkspace/.metadata/.plugins/org.eclipse.jst.jsp.core/jspsearch/1370640413.index
+/EmailClient/src

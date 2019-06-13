@@ -112,35 +112,26 @@
 	  </div>
 	</div>
 	
+	<a class="waves-effect waves-light btn modal-trigger" href="#modal2">cadastrar novo email</a>
+	
 	<!-- Modal Structure -->
 	<div id="modal2" class="modal">
 	  <div class="modal-content container">
 	    <h4>cadastrar novo e-mail</h4>  
-		<form action="enviarEmail.jsp" id="formEmail">
+		<form action="cadastrarEmail.jsp" id="formEmail">
 			Novo Email
+			<input type="text" placeholder="endereço de e-mail:" name="email" id="email"/>
 			<br>
-			<div class="input-field col s12">
-				<select name="cbxEmails">
-				    <option value="" disabled selected>selecione o email de origem</option>		    
-				    <c:forEach var="email" items="${todosEmails}">
-				        <option value="${email.getEmail()}">
-				            ${email.getEmail()}
-				        </option>
-				     </c:forEach>
-				</select>
-			</div>
-			<input type="text" placeholder="endereço de e-mail:" name="enderecoEmail" id="enderecoEmail"/>
+			<input type="password" placeholder="senha:" name="senha" id="senha"/>
 			<br>
-			<input type="text" placeholder="assunto:" name="assunto" id="assunto"/>
+			<input type="text" placeholder="porta:" name="porta" id="porta"/>
 			<br>
-			<div class="input-field col s12">
-	          <textarea id="textarea1" class="materialize-textarea"></textarea>
-	          <label for="textarea1">Textarea</label>
-	        </div>
-			<input type="text" placeholder="conteudo:" name="conteudo" id="conteudo"/>
+			<input type="text" placeholder="host:" name="host" id="host"/>
+			<br>
+			<input type="text" placeholder="protocolo:" name="protocolo" id="protocolo"/>
 			<br>
 			<button type="submit" id="botao" class="btn deep-purple" value="Enviar e-mail">
-				Enviar e-mail
+				Cadastrar e-mail
 				<i class="material-icons right">send</i>
 			</button>
 		</form>
@@ -149,8 +140,21 @@
 	    <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
 	  </div>
 	</div>
-    
 	
+	
+	<div class="row">
+	   	<div class="input-field col s3">
+		    <select multiple>
+		      <option value="" disabled selected>Todos</option>
+		      <c:forEach var="email" items="${todosEmails}">
+		        <option value="${email.getEmail()}">
+		            ${email.getEmail()}
+		        </option>
+		      </c:forEach>
+		    </select>
+		    <label>Endereços exibidos</label>
+	  	</div>
+  	</div>
 	
 	<ul class="collection with-header collapsible">
 		<li class="collection-header">
@@ -210,7 +214,17 @@
 		
 	</ul>
             
-	
+	<% 
+		if(!(session.getAttribute("erroLogin") == null)) {
+			
+	%>
+		<script type="text/javascript">
+			M.toast({html: '<%= session.getAttribute("erroLogin")%>', classes: "rounded"});
+		</script>
+	<% 
+			session.removeAttribute("erroLogin");
+		}
+	%>
 	<script>
 		$(document).ready(function(){
 		    $('select').formSelect();
