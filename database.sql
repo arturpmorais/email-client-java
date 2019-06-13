@@ -28,7 +28,7 @@ create table Email(
 	id        int identity primary key,
 	id_dono   int foreign key references Usuario(id),
 	email     varchar(50) not null,
-	senha     varchar(50) not null,
+	senha     varchar(200) not null,
 	porta     int         not null,
 	host      varchar(30) not null,
 	protocolo varchar(4)  not null
