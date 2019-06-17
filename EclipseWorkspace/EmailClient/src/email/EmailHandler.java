@@ -47,6 +47,8 @@ public class EmailHandler {
 			email.getPorta());
 	}
 	
+	public EmailHandler() {}
+	
 	protected String parseProperty(String... infos) {
 		String result = "";
 		for(String info : infos) {

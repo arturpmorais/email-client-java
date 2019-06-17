@@ -1,7 +1,16 @@
 package beans;
 
+import mycrypto.MyCrypto;
+
 public class CadastroBean {
 	protected String nome, email, senha;
+
+	public CadastroBean(String nome, String email, String senha) {
+		super();
+		this.nome = nome;
+		this.email = email;
+		this.senha = senha;
+	}
 	
 	public String getNome() {
 		return nome;
@@ -23,8 +32,9 @@ public class CadastroBean {
 		return senha;
 	}
 
-	public void setSenha(String senha) {
-		this.senha = senha;
+	public void setSenha(String senha) throws Exception{
+		MyCrypto md5 = new MyCrypto();
+		this.senha = md5.generateMD5(senha);
 	}
 	
 	@Override

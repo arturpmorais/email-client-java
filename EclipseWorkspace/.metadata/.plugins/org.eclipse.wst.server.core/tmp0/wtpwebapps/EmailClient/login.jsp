@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1" import="beans.LoginBean, bd.daos.Usuarios, bd.dbos.Usuario"%>
+    pageEncoding="ISO-8859-1" import="beans.LoginBean, bd.daos.Usuarios, bd.dbos.Usuario, bd.daos.Emails"%>
 <% %>
 <!DOCTYPE html>
 <html>

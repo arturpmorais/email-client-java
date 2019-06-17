@@ -77,7 +77,7 @@ public class MyCrypto {
         return new String(decripta.doFinal(textoencriptado),"UTF-8");
     }
 	
-    public String generateMD5(String texto) throws Exception {
+    public static String generateMD5(String texto) throws Exception {
         MessageDigest m = MessageDigest.getInstance("MD5");
         m.update(texto.getBytes(),0,texto.length());
        

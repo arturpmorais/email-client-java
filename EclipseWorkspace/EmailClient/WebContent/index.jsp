@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>eMali: gerenciador de emails em JSP</title>
 <jsp:include page="header.jsp"></jsp:include>
 <style type="text/css">
     .mg{
@@ -117,7 +117,7 @@
 		      <div class="card-content">
 		        <span class="card-title">cadastro</span>
 		        <a class="btn-floating halfway-fab waves-effect waves-light red" id="bt2">
-		        	<i class="material-icons">add</i>
+		        	<i class="material-icons">close</i>
 		        </a>
 		        <div class="row">
 		          <div class="input-field col s12">

@@ -6,6 +6,7 @@ import java.sql.*;
 import bd.dbos.Usuario;
 import beans.CadastroBean;
 import beans.LoginBean;
+import mycrypto.MyCrypto;
 
 public class Usuarios {
 	public static boolean cadastrado(String email) throws Exception {
@@ -84,7 +85,7 @@ public class Usuarios {
         BDSQLServer.COMANDO.prepareStatement(sql);
 
         BDSQLServer.COMANDO.setString(1, usuario.getEmail());
-        BDSQLServer.COMANDO.setString(2, usuario.getSenha());
+        BDSQLServer.COMANDO.setString(2, MyCrypto.generateMD5(usuario.getSenha()));
 
         MeuResultSet resultado = (MeuResultSet)BDSQLServer.COMANDO.executeQuery();
 
@@ -122,7 +123,7 @@ public class Usuarios {
 
             BDSQLServer.COMANDO.setString(1, usuario.getNome());
             BDSQLServer.COMANDO.setString(2, usuario.getEmail());
-            BDSQLServer.COMANDO.setString(3, usuario.getSenha());
+            BDSQLServer.COMANDO.setString(3, MyCrypto.generateMD5(usuario.getSenha()));
 
             BDSQLServer.COMANDO.executeUpdate();
             BDSQLServer.COMANDO.commit();
