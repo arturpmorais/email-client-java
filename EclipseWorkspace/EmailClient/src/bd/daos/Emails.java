@@ -132,10 +132,10 @@ public class Emails {
             sql = "UPDATE EMAIL " +
                   "SET EMAIL=? , " +
                   "SENHA=? , " +
-                  "PORTA=? ," +
-                  "HOST=? ," +
-                  "PROTOCOLO=? , " +
-                  "WHERE ID = ?";
+                  "PORTA=? , " +
+                  "HOST=? , " +
+                  "PROTOCOLO=? " +
+                  "WHERE ID = ? ";
 
             BDSQLServer.COMANDO.prepareStatement (sql);
 

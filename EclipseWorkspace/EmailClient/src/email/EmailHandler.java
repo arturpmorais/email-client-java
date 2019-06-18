@@ -24,8 +24,8 @@ public class EmailHandler {
 
         myProperties = new Properties();
 
-        myProperties.put(parseProperty("mail", protocol, "host"), parseProperty("mail", host, "com"));
-        myProperties.put(parseProperty("mail", protocol, "port"), "" + port);
+        myProperties.put(parseProperty("mail", protocol, "host"), parseProperty(protocol, host, "com"));
+        myProperties.put(parseProperty("mail", protocol, "port"), "" + protocol);
         myProperties.put(parseProperty("mail", protocol, "starttls", "enable"), "true");
 
 
@@ -101,10 +101,13 @@ public class EmailHandler {
             message.setSubject(subject);
             message.setText(content);
             
+            /*
             Transport transport = mySession.getTransport("smtp");
             transport.connect(this.host, Integer.valueOf(this.port), this.emailAddress, this.password);
             transport.sendMessage(message, message.getAllRecipients());
             transport.close();
+            */
+            Transport.send(message);
             
         } catch(MessagingException e) { } 
     	  catch(Exception e) { }

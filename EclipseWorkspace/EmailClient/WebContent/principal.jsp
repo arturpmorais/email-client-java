@@ -6,7 +6,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>eMali: página inicial</title>
+		<title>eMali: caixa de entrada</title>
 		<jsp:include page="header.jsp"></jsp:include>
 		<style>
 			.btn {
@@ -31,6 +31,20 @@
 			     //alert(document.getElementById('hid1').value);
 			     document.getElementById("formMensagem" + x.name).submit();
 			}
+			
+			function adicionarNoInput(x) {
+				document.getElementById('hidEmails').value = x;
+			}
+			
+			function updateEmails() {
+				var values = $('#selectEmails').val();
+				var enderecos = '';
+				for (let i in values) {
+					enderecos += values[i];
+					
+				}
+				adicionarNoInput(enderecos);
+			}
 		</script>
 	</head>
 	<body>
@@ -51,10 +65,21 @@
 					todosEmails = Emails.getEmails(usuario.getId());
 					todosEmailHandlers = new ArrayList<EmailHandler>();
 					
-					for(int i = 0; i < todosEmails.size(); i++) {
-						todosEmailHandlers.add(new EmailHandler(todosEmails.get(i)));
+					if(request.getParameter("hidEmails") == null || request.getParameter("hidEmails").equals("")) {
+						
+						for(Email emailAtual : todosEmails) {
+							todosEmailHandlers.add(new EmailHandler(emailAtual));
+						}
+						
+					} 
+					else {
+						String enderecosACarregar = request.getParameter("hidEmails");
+						
+						for(Email emailAtual : todosEmails) {
+							if(enderecosACarregar.contains(emailAtual.getEmail()))
+								todosEmailHandlers.add(new EmailHandler(emailAtual));
+						}
 					}
-					
 					session.setAttribute("todosEmails", todosEmails);	
 					session.setAttribute("todosEmailHandlers", todosEmailHandlers);	
 				}
@@ -64,37 +89,7 @@
 			%>
 		</c:catch>
 		
-		<nav class="pink darken-1">
-		  <div class="nav-wrapper container">
-		    <a href="#" class="brand-logo">eMali: gerenciador de emails</a>
-		    <ul id="nav-mobile" class="right hide-on-med-and-down">
-		      <li><a href="sass.html">Sass</a></li>
-		      <li><a class='dropdown-trigger' href='#' data-target='dropdown1'>opções</a></li>
-		    </ul>
-		  </div>
-		</nav>
-		
-		<!-- dropdown opções -->
-		<ul id='dropdown1' class='dropdown-content'>
-			<li>
-				<a data-target="slide-out" class="black-text">
-					informações da conta
-					<i class="material-icons">person_outline</i>
-				</a>
-			</li>
-			<li>
-				<a class="modal-trigger black-text" href="#modal2">
-					cadastrar novo email
-					<i class="material-icons left">library_add</i>
-				</a>
-			</li>
-			<li class="divider" tabindex="-1"></li>
-			<li>
-				<a class="black-text" href="logout.jsp">deslogar
-					<i class="material-icons left">exit_to_app</i>
-				</a>
-			</li>
-		</ul>
+		<jsp:include page="navbar.jsp"></jsp:include>
 		
 		
 		<div class="container">
@@ -117,32 +112,37 @@
 			</ul>
 			
 			<a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">settings</i></a>
-			<div class="row">
-				<a class="waves-effect waves-light btn-large modal-trigger pink darken-1 col s3" href="#modal1">
+			<div class="row valign-wrapper">
+				<a class="waves-effect waves-light btn-large modal-trigger pink darken-1 col s3 left pull-s2" href="#modal1">
 					nova mensagem
 					<i class="material-icons left">add</i>	
 				</a>
-				<div class="input-field col s4 offset-s1">
-				    <select multiple>
-						<option value="" selected>Todos</option>
-						<c:forEach var="email" items="${todosEmails}">
-							<option value="${email.getEmail()}">
-								${email.getEmail()}
-							</option>
-						</c:forEach>
-				    </select>
-				    <label>Endereços exibidos</label>
-			  	</div>
+				<form action="carregarEmails.jsp">
+					<input type="hidden" id="hidEmails" name="hidEmails" value=""/>
+					<div class="input-field col s4 offset-s1">
+					    <select multiple onchange="updateEmails(this)" id="selectEmails">
+							<option value="" selected>Todos</option>
+							<c:forEach var="email" items="${todosEmails}">
+								<option value="${email.getEmail()}">
+									${email.getEmail()}
+								</option>
+							</c:forEach>
+					    </select>
+					    <label>Endereços exibidos</label>
+				  	</div>
+				  	<button type="submit" class="waves-effect waves-dark btn-flat pink-text darken-1">
+						atualizar
+						<i class="material-icons left">refresh</i>	
+					</button>
+				</form>
 			</div>
 			
 		
 			<!-- Modal Structure -->
 			<div id="modal1" class="modal">
 			  <div class="modal-content container">
-			    <h4>Modal Header</h4>
-			    <a class="material-icons modal-close waves-effect waves-green btn-flat">close</a>
 				<form action="enviarEmail.jsp" id="formEmail">
-					Novo Email
+					<h5>novo email</h5>
 					<br>
 					<div class="input-field col s12">
 						<select name="emailOrigem" id="emailOrigem">
@@ -171,32 +171,7 @@
 			  </div>
 			</div>
 			
-			<!-- Modal Structure -->
-			<div id="modal2" class="modal">
-			  <div class="modal-content container">
-			    <h4>cadastrar novo e-mail</h4>  
-				<form action="cadastrarEmail.jsp" id="formEmail">
-					Novo Email
-					<input type="text" placeholder="endereço de e-mail:" name="email" id="email"/>
-					<br>
-					<input type="password" placeholder="senha:" name="senha" id="senha"/>
-					<br>
-					<input type="text" placeholder="porta:" name="porta" id="porta"/>
-					<br>
-					<input type="text" placeholder="host:" name="host" id="host"/>
-					<br>
-					<input type="text" placeholder="protocolo:" name="protocolo" id="protocolo"/>
-					<br>
-					<button type="submit" id="botao" class="btn deep-purple" value="Enviar e-mail">
-						Cadastrar e-mail
-						<i class="material-icons right">send</i>
-					</button>
-				</form>
-			  </div>
-			  <div class="modal-footer">
-			    <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
-			  </div>
-			</div>
+			
 			
 			
 			<div class="row">
@@ -290,11 +265,7 @@
 			    $('.sidenav').sidenav();
 			});
 			
-			var elem = document.querySelector('.dropdown-trigger');
-			var instance = new M.Dropdown(elem, {
-				coverTrigger: false,
-			    constrainWidth: false
-			});
+			/*
 	            
 			$(document).ready(function () {
 			    $('#botao').on('click', function(e) {
@@ -319,6 +290,8 @@
 			        });
 			    });
 			});
+			
+			*/
 		</script>
 	</body>
 </html>

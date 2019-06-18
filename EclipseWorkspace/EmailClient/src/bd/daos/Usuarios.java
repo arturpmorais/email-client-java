@@ -159,16 +159,13 @@ public class Usuarios {
 
         if (!cadastrado (usuario.getId()))
             throw new Exception ("Usuario nao cadastrado!");
-        
-        if (cadastrado(usuario.getEmail()))
-            throw new Exception ("Email ja cadastrado!");
 
         try {
             String sql;
 
             sql = "UPDATE USUARIO " +
                   "SET NOME=? , " +
-                  "EMAIL=? " +
+                  "EMAIL=? , " +
                   "SENHA=? " +
                   "WHERE ID = ?";
 
@@ -176,7 +173,7 @@ public class Usuarios {
 
             BDSQLServer.COMANDO.setString(1, usuario.getNome());
             BDSQLServer.COMANDO.setString(2, usuario.getEmail());
-            BDSQLServer.COMANDO.setString(3, usuario.getSenha());
+            BDSQLServer.COMANDO.setString(3, MyCrypto.generateMD5(usuario.getSenha()));
             BDSQLServer.COMANDO.setInt(4, usuario.getId());
 
             BDSQLServer.COMANDO.executeUpdate();

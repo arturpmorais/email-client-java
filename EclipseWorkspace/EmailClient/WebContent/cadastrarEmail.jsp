@@ -20,7 +20,8 @@
 				emailBean.getSenha(), 
 				emailBean.getPorta(), 
 				emailBean.getHost(), 
-				emailBean.getProtocolo());	
+				emailBean.getProtocolo()
+				);	
 		Emails.incluir(novoEmail);
 		
 		response.sendRedirect("principal.jsp");

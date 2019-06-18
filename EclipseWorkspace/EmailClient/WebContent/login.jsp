@@ -14,6 +14,7 @@
 		//session.setAttribute("usuario", new Usuario(15, "artur", "arturpmrs@gmail.com", "senha"));
 		//response.sendRedirect("principal.jsp");
 		try {
+			Usuarios.alterar(new Usuario(1, "Artur", "arturpmrs@gmail.com", "senha"));
 			Usuarios.autenticarLogin(loginBean);
 			session.setAttribute("usuario", Usuarios.getUsuario(loginBean.getEmail()));
 			session.removeAttribute("erroLogin");

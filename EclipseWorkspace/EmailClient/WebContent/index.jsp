@@ -150,10 +150,11 @@
 	</div>
 	
 	<% 
+	
 		if(session.getAttribute("usuario") != null)
 			response.sendRedirect("principal.jsp");
 	
-		if(!(session.getAttribute("erroLogin") == null)) {
+		if(session.getAttribute("erroLogin") != null) {
 			
 	%>
 		<script type="text/javascript">
