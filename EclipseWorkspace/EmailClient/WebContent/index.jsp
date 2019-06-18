@@ -158,7 +158,7 @@
 			
 	%>
 		<script type="text/javascript">
-			M.toast({html: '<%= session.getAttribute("erroLogin")%>', classes: "rounded"});
+			M.toast({html: '<%= session.getAttribute("erroLogin") %>', classes: "rounded"});
 		</script>
 	<% 
 			session.removeAttribute("erroLogin");

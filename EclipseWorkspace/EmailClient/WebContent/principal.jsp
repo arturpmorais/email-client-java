@@ -54,7 +54,6 @@
 				ArrayList<Message> todasMensagens = null;
 				session.removeAttribute("todasMensagens");
 		%>
-		<c:catch var="erroCarregarMensagens">
 			<%
 				if(session.getAttribute("usuario") == null) {
 					session.setAttribute("erroLogin", "Você precisa estar logado para acessar o site.");
@@ -65,13 +64,18 @@
 					todosEmails = Emails.getEmails(usuario.getId());
 					todosEmailHandlers = new ArrayList<EmailHandler>();
 					
-					if(request.getParameter("hidEmails") == null || request.getParameter("hidEmails").equals("")) {
-						
+					
+					// if(request.getParameter("hidEmails") == null || request.getParameter("hidEmails").equals("")) {
+						int i = 0;
 						for(Email emailAtual : todosEmails) {
 							todosEmailHandlers.add(new EmailHandler(emailAtual));
+							System.out.println(i);
+							i++;
 						}
 						
-					} 
+					// } 
+					
+					/*
 					else {
 						String enderecosACarregar = request.getParameter("hidEmails");
 						
@@ -80,14 +84,17 @@
 								todosEmailHandlers.add(new EmailHandler(emailAtual));
 						}
 					}
-					session.setAttribute("todosEmails", todosEmails);	
+					*/
+					
+					session.setAttribute("todosEmails", todosEmails);
+					System.out.println("setou emails");
 					session.setAttribute("todosEmailHandlers", todosEmailHandlers);	
+					System.out.println("setou handlers");
 				}
 					
 				//if(!Emails.getEmails(usuario.getId()).isEmpty())
 					//session.setAttribute("emails", Emails.getEmails(usuario.getId()));
 			%>
-		</c:catch>
 		
 		<jsp:include page="navbar.jsp"></jsp:include>
 		
@@ -120,7 +127,7 @@
 				<form action="carregarEmails.jsp">
 					<input type="hidden" id="hidEmails" name="hidEmails" value=""/>
 					<div class="input-field col s4 offset-s1">
-					    <select multiple onchange="updateEmails(this)" id="selectEmails">
+					    <select multiple onchange="updateEmails()" id="selectEmails">
 							<option value="" selected>Todos</option>
 							<c:forEach var="email" items="${todosEmails}">
 								<option value="${email.getEmail()}">
@@ -185,6 +192,7 @@
 					
 			<c:catch var="erroCarregarMensagens">
 				<%	
+					System.out.println("tamo voando");
 					int qtosEmails = 0;
 					todasMensagens = new ArrayList<Message>();
 					for(EmailHandler emailAtual : todosEmailHandlers) {
@@ -242,13 +250,13 @@
 		</div>
 	            
 		<% 
-			if(!(session.getAttribute("erroLogin") == null)) {
+			if(session.getAttribute("erroLogin") != null) {
 				
 		%>
 			<script type="text/javascript">
 				M.toast({html: '<%= session.getAttribute("erroLogin")%>', classes: "rounded"});
 			</script>
-		<% 
+		<%
 				session.removeAttribute("erroLogin");
 			}
 		%>
