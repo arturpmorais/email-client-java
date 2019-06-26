@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="beans.CadastroBean, bd.daos.Usuarios, bd.dbos.Usuario"%>
+    pageEncoding="UTF-8" import="beans.CadastroBean, bd.daos.Usuarios, bd.dbos.Usuario"
+    errorPage="erro.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,11 +8,13 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<jsp:useBean id="cadastroBean" class="beans.CadastroBean"></jsp:useBean>
-	<jsp:setProperty name="cadastroBean" property="*"/>
 	<%
+		CadastroBean cadastroBean = new CadastroBean();
 		//session.setAttribute("usuario", new Usuario(15, "artur", "arturpmrs@gmail.com", "senha"));
 		//response.sendRedirect("principal.jsp");
+		cadastroBean.setNome(request.getParameter("nome"));
+		cadastroBean.setEmail(request.getParameter("email"));
+		cadastroBean.setSenha(request.getParameter("senha"));
 		try {
 			if(Usuarios.cadastrado(cadastroBean.getEmail()))
 				throw new Exception("Endereço de e-mail já cadastrado!");

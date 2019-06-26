@@ -3,6 +3,8 @@ package email;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
+
 import java.security.MessageDigest;
 import java.util.Properties;
 
@@ -25,7 +27,7 @@ public class EmailHandler {
         myProperties = new Properties();
 
         myProperties.put(parseProperty("mail", protocol, "host"), parseProperty(protocol, host, "com"));
-        myProperties.put(parseProperty("mail", protocol, "port"), "" + protocol);
+        myProperties.put(parseProperty("mail", protocol, "port"), "" + port);
         myProperties.put(parseProperty("mail", protocol, "starttls", "enable"), "true");
 
 
@@ -94,8 +96,30 @@ public class EmailHandler {
     }
 
     public void sendEmail(String destination, String subject, String content) throws Exception {
-    	try {                        
-            Message message = new MimeMessage(mySession);
+    	try {    
+    		Properties prop = new Properties();
+    		prop.put(parseProperty("mail", "smtp", "auth"), "true");
+    		prop.put(parseProperty("mail", "smtp", "host"), parseProperty("smtp", "gmail", "com"));
+    		prop.put(parseProperty("mail", "smtp", "port"), "" + 587);
+    		prop.put(parseProperty("mail", "smtp", "starttls", "enable"), "true");
+
+
+            /* codigo caso seja desejado fazer a conexao em POP3:
+
+            propriedades.put("mail.pop3.host", "pop.gmail.com");
+            propriedades.put("mail.pop3.port", "995");
+            propriedades.put("mail.pop3.starttls.enable", "true");
+
+            */
+            
+            Session ses = Session.getInstance(prop, new javax.mail.Authenticator() {
+            	protected PasswordAuthentication getPasswordAuthentication() {
+            		return new PasswordAuthentication(emailAddress, password);
+            	}
+            });
+            // this.myStore.connect(parseProperty(protocol, host, "com"), emailAddress, password);
+    		
+            Message message = new MimeMessage(ses);
             message.setFrom(new InternetAddress(this.emailAddress));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(destination));
             message.setSubject(subject);
@@ -109,8 +133,12 @@ public class EmailHandler {
             */
             Transport.send(message);
             
-        } catch(MessagingException e) { } 
-    	  catch(Exception e) { }
+        } catch(MessagingException e) { 
+        	e.printStackTrace();
+        } 
+    	  catch(Exception e) { 
+    		  e.printStackTrace();
+    	  }
     	
     	/*
         Message newMessage = new MimeMessage(mySession);
@@ -125,6 +153,30 @@ public class EmailHandler {
 
         Transport.send(newMessage);
     	*/
+    }
+    
+    public static String getTextFromMimeMultipart(MimeMultipart mimeMultipart) throws Exception {
+        String result = "";
+        int count = mimeMultipart.getCount();
+        for (int i = 0; i < count; i++)
+        {
+            BodyPart bodyPart = mimeMultipart.getBodyPart(i);
+            if (bodyPart.isMimeType("text/plain")) {
+                result = result + "\n" + bodyPart.getContent();
+                break; // without break same text appears twice in my tests
+            }
+            else if (bodyPart.isMimeType("text/html")) {
+                String html = (String) bodyPart.getContent();
+                result = result + "\n" + org.jsoup.Jsoup.parse(html).text();
+            }
+            else if (bodyPart.getContent() instanceof MimeMultipart) {
+                result = result + getTextFromMimeMultipart((MimeMultipart)bodyPart.getContent());
+            }
+        }
+
+        //result = result.replace("<", "&lt;").replace(">", "&gt;");
+
+        return result;
     }
 
     public Message[] listInboxEmails() throws Exception {

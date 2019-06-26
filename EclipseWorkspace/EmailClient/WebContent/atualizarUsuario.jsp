@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="bd.dbos.Usuario, bd.daos.Usuarios"%>
+    pageEncoding="UTF-8" import="bd.dbos.Usuario, bd.daos.Usuarios"
+    errorPage="erro.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>

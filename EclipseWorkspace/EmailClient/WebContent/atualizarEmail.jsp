@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="bd.daos.*, bd.dbos.*"%>
+    pageEncoding="UTF-8" import="bd.daos.*, bd.dbos.*"
+    errorPage="erro.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,8 +15,8 @@
 		// MyCrypto crypto = new MyCrypto("l7sjfoed83j47ktk");
 					
 		Email novoEmail = new Email(
-				usuario.getId(),
 				Integer.parseInt(request.getParameter("idEmail")),
+				usuario.getId(),
 				emailBean.getEmail(), 
 				// crypto.getEncryptedString(emailBean.getSenha(), "chaveultrasecret"), 
 				emailBean.getSenha(), 

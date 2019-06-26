@@ -4,6 +4,8 @@ import mycrypto.MyCrypto;
 
 public class CadastroBean {
 	protected String nome, email, senha;
+	
+	public CadastroBean() {}
 
 	public CadastroBean(String nome, String email, String senha) {
 		super();

@@ -11,7 +11,6 @@
 	  <div class="nav-wrapper container">
 	    <a href="#" class="brand-logo">eMali: gerenciador de emails</a>
 	    <ul id="nav-mobile" class="right hide-on-med-and-down">
-	      <li><a href="sass.html">Sass</a></li>
 	      <li><a class='dropdown-trigger' href='#' data-target='dropdown1'>opções</a></li>
 	    </ul>
 	  </div>
@@ -72,9 +71,6 @@
 				<i class="material-icons right">send</i>
 			</button>
 		</form>
-	  </div>
-	  <div class="modal-footer">
-	    <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
 	  </div>
 	</div>
 	<script>

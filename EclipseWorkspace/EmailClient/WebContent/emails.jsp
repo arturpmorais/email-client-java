@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="bd.dbos.Usuario, java.util.*"%>
+    pageEncoding="UTF-8" import="bd.dbos.Usuario, java.util.*"
+    errorPage="erro.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -37,6 +38,7 @@
 		ArrayList<Usuario> todosEmails = (ArrayList<Usuario>)session.getAttribute("todosEmails");
 	%>
 	<div class="container">
+	<center>
 	<ul class="list">
 		<c:forEach var="email" items="${sessionScope.todosEmails}">
 			<li class="waves-effect">
@@ -51,9 +53,14 @@
 						host: ${email.getHost()}
 				      </span>
 				    </div>
-				    <a class="modal-trigger pink darken-1 btn white-text" href="#modal${email.getId()}">
+				    <a class="modal-trigger blue btn white-text" href="#modal${email.getId()}">
 						<i class="material-icons">edit</i>
 					</a>
+					<form action="excluirEmail.jsp">
+						<button class="btn red" type="submit" id="btnSubmit" name="btnSubmit" value="${email.getId()}">
+							<i class="material-icons">delete</i>
+						</button>
+					</form>
 				  </div>
 				</div>
 			</li>
@@ -83,44 +90,8 @@
 			</div>
 		</c:forEach>
 	</ul>
+	</center>
 	</div>
-	
-	
-			
-	<div class="container center-align">
-		<div class="row">
-			<br>
-		</div>
-		<div class="row">
-			<a class="btn modal-trigger pink darken-1" href="#modal1">
-				editar informações
-				<i class="material-icons left">edit</i>
-			</a>
-		</div>
-	</div>
-	
-	<div id="modal1" class="modal">
-	  <div class="modal-content container">
-		<form action="atualizarUsuario.jsp" id="formEmail">
-			<h5>suas informações</h5>
-			<br>
-			<input type="text" placeholder="nome" name="nome" id="nome" value="${usuario.getNome()}"/>
-			<br>
-			<input type="text" placeholder="email" name="email" id="email" value="${usuario.getEmail()}"/>
-			<br>
-			<input type="password" placeholder="senha" name="senha" id="senha"/>
-			<br>
-			<button type="submit" id="botao" class="btn pink darken-1">
-				salvar
-				<i class="material-icons right">save_alt</i>
-			</button>
-		</form>
-	  </div>
-	</div>
-	
-	
-	
-	
 	<script>
 		$(document).ready(function(){
 		    $('.materialboxed').materialbox();

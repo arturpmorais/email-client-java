@@ -3,4 +3,5 @@
     <fullyQualifiedTypeName name="javax.mail.Message.RecipientType"/>
     <fullyQualifiedTypeName name="beans.LoginBean"/>
     <fullyQualifiedTypeName name="javax.websocket.Session"/>
+    <fullyQualifiedTypeName name="javax.mail.internet.MimeMultipart"/>
 </qualifiedTypeNameHistroy>

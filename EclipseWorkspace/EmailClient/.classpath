@@ -16,5 +16,6 @@
 	</classpathentry>
 	<classpathentry kind="lib" path="/home/artur/Downloads/javax.mail.jar"/>
 	<classpathentry kind="lib" path="/home/artur/Downloads/javax.servlet.jsp.jstl-api-1.2.1.jar"/>
+	<classpathentry kind="lib" path="/home/artur/Downloads/jsoup-1.12.1.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

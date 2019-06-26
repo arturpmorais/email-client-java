@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" 
+    pageEncoding="UTF-8" errorPage="erro.jsp"
     import="bd.dbos.*, bd.daos.*, email.EmailHandler, javax.mail.*, javax.mail.internet.*, java.util.*"%>
 <!DOCTYPE html>
 <html>
@@ -38,6 +38,7 @@
 			
 			function updateEmails() {
 				var values = $('#selectEmails').val();
+				console.log(values);
 				var enderecos = '';
 				for (let i in values) {
 					enderecos += values[i];
@@ -58,14 +59,13 @@
 				if(session.getAttribute("usuario") == null) {
 					session.setAttribute("erroLogin", "Você precisa estar logado para acessar o site.");
 					response.sendRedirect("index.jsp");
-				}
-				else {
+				} else {
 					Usuario usuario = (Usuario)session.getAttribute("usuario");
 					todosEmails = Emails.getEmails(usuario.getId());
 					todosEmailHandlers = new ArrayList<EmailHandler>();
 					
 					
-					// if(request.getParameter("hidEmails") == null || request.getParameter("hidEmails").equals("")) {
+					if(request.getParameter("hidEmails") == null || request.getParameter("hidEmails").equals("")) {
 						int i = 0;
 						for(Email emailAtual : todosEmails) {
 							todosEmailHandlers.add(new EmailHandler(emailAtual));
@@ -73,18 +73,20 @@
 							i++;
 						}
 						
-					// } 
+					} 
 					
-					/*
+					
 					else {
 						String enderecosACarregar = request.getParameter("hidEmails");
 						
 						for(Email emailAtual : todosEmails) {
-							if(enderecosACarregar.contains(emailAtual.getEmail()))
+							if(enderecosACarregar.contains(emailAtual.getEmail())) {
 								todosEmailHandlers.add(new EmailHandler(emailAtual));
+								System.out.println("entrou");
+							}
 						}
 					}
-					*/
+					
 					
 					session.setAttribute("todosEmails", todosEmails);
 					System.out.println("setou emails");
@@ -100,33 +102,17 @@
 		
 		
 		<div class="container">
-			<ul id="slide-out" class="sidenav">
-				<li>
-					<div class="user-view">
-						<div class="background">
-						  <img style="height: 100%; width: 100%;" src="img/1.jpg">
-						</div>
-						<a href="#user"><img class="circle" src="images/yuna.jpg"></a>
-						<a href="#name"><span class="white-text name">${ usuario.getNome() }</span></a>
-						<a href="#email"><span class="white-text email">${ usuario.getEmail() }</span></a>
-					</div>
-				</li>
-				<li><a href="#!"><i class="material-icons">cloud</i>First Link With Icon</a></li>
-				<li><a href="#!">Second Link</a></li>
-				<li><div class="divider"></div></li>
-				<li><a class="subheader">Subheader</a></li>
-				<li><a class="waves-effect" href="#!">Third Link With Waves</a></li>
-			</ul>
+			<div class="row">
 			
-			<a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">settings</i></a>
-			<div class="row valign-wrapper">
-				<a class="waves-effect waves-light btn-large modal-trigger pink darken-1 col s3 left pull-s2" href="#modal1">
+			</div>			
+			<div class="row">
+				<a class="waves-effect waves-light btn-large modal-trigger pink darken-1 col s3 left" href="#modal1">
 					nova mensagem
 					<i class="material-icons left">add</i>	
 				</a>
-				<form action="carregarEmails.jsp">
-					<input type="hidden" id="hidEmails" name="hidEmails" value=""/>
-					<div class="input-field col s4 offset-s1">
+				<form action="principal.jsp">
+					<input type="text" id="hidEmails" name="hidEmails" value="" style="visible:false !important;"/>
+					<div class="input-field col s4">
 					    <select multiple onchange="updateEmails()" id="selectEmails">
 							<option value="" selected>Todos</option>
 							<c:forEach var="email" items="${todosEmails}">
@@ -185,45 +171,43 @@
 			   	
 		  	</div>
 			
-		<ul class="collection with-header collapsible">
+		<ul class="collection with-header">
 			<li class="collection-header">
 			    <h4>Emails</h4>
 			</li>
 					
-			<c:catch var="erroCarregarMensagens">
-				<%	
-					System.out.println("tamo voando");
-					int qtosEmails = 0;
-					todasMensagens = new ArrayList<Message>();
-					for(EmailHandler emailAtual : todosEmailHandlers) {
-						Message[] mensagens = emailAtual.listInboxEmails();
-						for(int i = 0; i < mensagens.length; i++) {
-							todasMensagens.add(mensagens[i]);
-						}
+			<%	
+				System.out.println("tamo voando");
+				int qtosEmails = 0;
+				todasMensagens = new ArrayList<Message>();
+				for(EmailHandler emailAtual : todosEmailHandlers) {
+					Message[] mensagens = emailAtual.listInboxEmails();
+					for(int i = 0; i < 50; i++) {
+						todasMensagens.add(mensagens[i]);
 					}
-			
-					todasMensagens.sort(
-						new Comparator<Message>() {
-							@Override
-							public int compare(Message m1, Message m2) {
-								try {
-									return m2.getReceivedDate().compareTo(m1.getReceivedDate());
-								} catch (Exception e) {
-									return -1;
-								}
+				}
+		
+				todasMensagens.sort(
+					new Comparator<Message>() {
+						@Override
+						public int compare(Message m1, Message m2) {
+							try {
+								return m2.getReceivedDate().compareTo(m1.getReceivedDate());
+							} catch (Exception e) {
+								return -1;
 							}
 						}
-					);
-					
-					if (todasMensagens.size() == 0 || todasMensagens == null)
-						throw new Exception("Lista de mensagens vazia");
-					
-					session.setAttribute("todasMensagens", todasMensagens);
-				%>
-			</c:catch>
+					}
+				);
+				
+				if (todasMensagens.size() == 0 || todasMensagens == null)
+					throw new Exception("Lista de mensagens vazia");
+				
+				session.setAttribute("todasMensagens", todasMensagens);
+			%>
 		
 			<c:if test="${erroCarregarMensagens != null}">
-				<li>Erro ao carregar as mensagens! + ${erroCarregarMensagens.getMessage()}</li>
+				<li>Erro ao carregar as mensagens! ${erroCarregarMensagens}</li>
 			</c:if>
 			<!--  
 				<li class="collection-item avatar">
@@ -235,14 +219,12 @@
 			-->
 			<c:forEach var="mensagemAtual" items="${sessionScope.todasMensagens}">
 				<li class="collection-item avatar">
-					<form id="form${todasMensagens.indexOf(mensagemAtual)}" action="acaoForm.jsp">
-						<input type="hidden" name="index" id="index" value="${todasMensagens.indexOf(mensagemAtual)}"/>
-						<input type="hidden" name="acao" id="acao" value=""/>
-						<img src="images/yuna.jpg" alt="" class="circle">
-						<span class="title"><c:out value="${mensagemAtual.getSubject()}"></c:out></span>
-						<p><c:out value="${mensagemAtual.getReceivedDate()}"></c:out><br></p>
-						<a onclick="submitForm()" class="secondary-content"><i class="material-icons red-text">delete_forever</i></a>
-					</form>
+					<img src="images/yuna.jpg" alt="" class="circle">
+					<span class="title"><c:out value="${mensagemAtual.getSubject()}"></c:out></span>
+					<p><c:out value="${mensagemAtual.getReceivedDate()}"></c:out><br></p>
+					<a class="modal-trigger blue btn white-text" href="#modal${mensagemAtual.getMessageNumber()}">
+						<i class="material-icons right">open_with</i>
+					</a>
 				</li>
 			</c:forEach>
 			
@@ -271,6 +253,10 @@
 			
 			$(document).ready(function(){
 			    $('.sidenav').sidenav();
+			});
+			
+			$(document).ready(function(){
+				$('.collapsible').collapsible();
 			});
 			
 			/*

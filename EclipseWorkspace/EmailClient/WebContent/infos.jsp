@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="bd.dbos.Usuario"%>
+    pageEncoding="UTF-8" import="bd.dbos.Usuario" errorPage="erro.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -56,10 +56,13 @@
 			<br>
 			<input type="password" placeholder="senha" name="senha" id="senha"/>
 			<br>
+			<br>
 			<button type="submit" id="botao" class="btn pink darken-1">
 				salvar
 				<i class="material-icons right">save_alt</i>
 			</button>
+			<br>
+			<br>
 		</form>
 	  </div>
 	</div>
